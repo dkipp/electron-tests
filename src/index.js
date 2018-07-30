@@ -24,11 +24,11 @@ let template = [
     label: "PDF.js",
     submenu: [{
         label: "Basic Setup",
-        click: function(item, focusedWindow) { mainWindow.loadURL(`file://${__dirname}/pdfjs/setup.html`);}
+        click: (item, focusedWindow) => { mainWindow.loadURL(`file://${__dirname}/pdfjs/setup.html`);}
       },
       {
         label: "All Pages",
-        click: function(item, focusedWindow) { mainWindow.loadURL(`file://${__dirname}/pdfjs/pages.html`);}
+        click: (item, focusedWindow) => { mainWindow.loadURL(`file://${__dirname}/pdfjs/pages.html`);}
       }
     ]
   }
@@ -51,7 +51,7 @@ const createWindow = () => {
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {
