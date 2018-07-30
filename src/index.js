@@ -8,43 +8,78 @@ let template = [
   {
     label: "App",
     submenu: [
-      {role: 'reload'},
-      {role: 'forcereload'},
-      {role: 'toggledevtools'},
-      {type: 'separator'},
-      {role: 'resetzoom'},
-      {role: 'zoomin'},
-      {role: 'zoomout'},
-      {type: 'separator'},
-      {role: 'togglefullscreen'},
-      {role: 'minimize'},
-      {role: 'close'}
+      { role: "reload" },
+      { role: "forcereload" },
+      { role: "toggledevtools" },
+      { type: "separator" },
+      { role: "resetzoom" },
+      { role: "zoomin" },
+      { role: "zoomout" },
+      { type: "separator" },
+      { role: "togglefullscreen" },
+      { role: "minimize" },
+      { role: "close" }
     ]
-  },{
+  },
+  {
     label: "PDF.js",
-    submenu: [{
+    submenu: [
+      {
         label: "Basic Setup",
-        click: (item, focusedWindow) => { mainWindow.loadURL(`file://${__dirname}/pdfjs/setup.html`);}
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/pdfjs/setup.html`);
+        }
       },
       {
         label: "All Pages",
-        click: (item, focusedWindow) => { mainWindow.loadURL(`file://${__dirname}/pdfjs/pages.html`);}
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/pdfjs/pages.html`);
+        }
       }
     ]
-  },{
+  },
+  {
     label: "CSS",
-    submenu: [{
+    submenu: [
+      {
         label: "Grid Layout",
-        submenu: [{
-          label: 'basics',
-          click: (item, focusedWindow) => { mainWindow.loadURL(`file://${__dirname}/css/grids/basic.html`);}
-        }]
-    }]
-  },{
+        submenu: [
+          {
+            label: "basics",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(`file://${__dirname}/css/grids/basics.html`);
+            }
+          },
+          {
+            label: "pattern",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(`file://${__dirname}/css/grids/pattern.html`);
+            }
+          }
+        ]
+      },
+      {
+        label: "3D transforms",
+        submenu: [
+          {
+            label: "basics",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(
+                `file://${__dirname}/css/3DTransforms/basics.html`
+              );
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     label: "Babylonjs",
-    submenu: [{
-        label: "setup",
-    }]
+    submenu: [
+      {
+        label: "setup"
+      }
+    ]
   }
 ];
 
