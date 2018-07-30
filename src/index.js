@@ -31,6 +31,20 @@ let template = [
         click: (item, focusedWindow) => { mainWindow.loadURL(`file://${__dirname}/pdfjs/pages.html`);}
       }
     ]
+  },{
+    label: "CSS",
+    submenu: [{
+        label: "Grid Layout",
+        submenu: [{
+          label: 'basics',
+          click: (item, focusedWindow) => { mainWindow.loadURL(`file://${__dirname}/css/grids/basic.html`);}
+        }]
+    }]
+  },{
+    label: "Babylonjs",
+    submenu: [{
+        label: "setup",
+    }]
   }
 ];
 
