@@ -8,52 +8,17 @@ let template = [
   {
     label: "App",
     submenu: [
-      {
-        label: "Reload",
-        accelerator: "CmdOrCtrl+R",
-        click: (item, focusedWindow) => {
-          if (focusedWindow) {
-            // on reload, start fresh and close any old
-            // open secondary windows
-            if (focusedWindow.id === 1) {
-              BrowserWindow.getAllWindows().forEach(win => {
-                if (win.id > 1) win.close();
-              });
-            }
-            focusedWindow.reload();
-          }
-        }
-      },
-      {
-        label: "Toggle Full Screen",
-        accelerator: (() => {
-          if (process.platform === "darwin") {
-            return "Ctrl+Command+F";
-          } else {
-            return "F11";
-          }
-        })(),
-        click: (item, focusedWindow) => {
-          if (focusedWindow) {
-            focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
-          }
-        }
-      },
-      {
-        label: "Toggle Developer Tools",
-        accelerator: (() => {
-          if (process.platform === "darwin") {
-            return "Alt+Command+I";
-          } else {
-            return "Ctrl+Shift+I";
-          }
-        })(),
-        click: (item, focusedWindow) => {
-          if (focusedWindow) {
-            focusedWindow.toggleDevTools();
-          }
-        }
-      }
+      {role: 'reload'},
+      {role: 'forcereload'},
+      {role: 'toggledevtools'},
+      {type: 'separator'},
+      {role: 'resetzoom'},
+      {role: 'zoomin'},
+      {role: 'zoomout'},
+      {type: 'separator'},
+      {role: 'togglefullscreen'},
+      {role: 'minimize'},
+      {role: 'close'}
     ]
   },{
     label: "PDF.js",
