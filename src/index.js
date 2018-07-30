@@ -53,15 +53,17 @@ let template = [
             focusedWindow.toggleDevTools();
           }
         }
+      }
+    ]
+  },{
+    label: "PDF.js",
+    submenu: [{
+        label: "Basic Setup",
+        click: function(item, focusedWindow) { mainWindow.loadURL(`file://${__dirname}/pdfjs/setup.html`);}
       },
       {
-        type: "separator"
-      },
-      {
-        label: "App Menu Demo",
-        click: function(item, focusedWindow) {
-          mainWindow.loadURL(`file://${__dirname}/index2.html`);
-        }
+        label: "All Pages",
+        click: function(item, focusedWindow) { mainWindow.loadURL(`file://${__dirname}/pdfjs/pages.html`);}
       }
     ]
   }
