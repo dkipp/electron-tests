@@ -62,10 +62,18 @@ let template = [
         label: "3D transforms",
         submenu: [
           {
-            label: "basics",
+            label: "Transformed Canvas",
             click: (item, focusedWindow) => {
               mainWindow.loadURL(
-                `file://${__dirname}/css/3DTransforms/basics.html`
+                `file://${__dirname}/css/3DTransforms/transformCanvas.html`
+              );
+            }
+          },
+          {
+            label: "Transformed SVG",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(
+                `file://${__dirname}/css/3DTransforms/transformSVG.html`
               );
             }
           }
