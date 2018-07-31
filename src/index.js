@@ -85,7 +85,17 @@ let template = [
     label: "Babylonjs",
     submenu: [
       {
-        label: "setup"
+        label: "Babylonjs Basics",
+        submenu: [
+          {
+            label: "Getting Started",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(
+                `file://${__dirname}/babylonjs/basics/quickstart.html`
+              );
+            }
+          }
+        ]
       }
     ]
   }
