@@ -10,71 +10,86 @@
   <link rel="stylesheet" href="./assets/css/global.css">
 
   <style>
+    /*
+     * define CSS Variables to be modified by JavaScript
+     * https://danielcwilson.com/blog/2017/02/individual-transforms/
+     */
+
+    :root {
+      --rotateX: 0deg;
+      --rotateY: 0deg;
+      --rotateZ: 0deg;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+      grid-auto-rows: min-content;
+      grid-gap: 1em;
+      background: #CCC;
+      padding: 5px;
+    }
+
     .scene {
       width: 600px;
       height: 600px;
       margin: auto;
       border: 1px solid #CCC;
       /* perspective property */
-      perspective: 600px;
+      perspective: 1000px;
       outline: 1px solid transparent;
     }
 
     .panel {
       width: 100%;
       height: 100%;
-      transform: rotateY(10deg) rotateX(10deg);
+      transform: rotateY(var(--rotateY)) rotateX(var(--rotateX))  rotateZ(var(--rotateZ));
+      transition: transform 500ms ease-in-out;
     }
   </style>
 </head>
 
 <body>
-  <div class="scene">
-    <canvas class="panel"></canvas>
-  </div>
-  <script>
-
-    let canvas = document.querySelector('canvas');
-    let color = Math.round(360 * Math.random());
-
-    fitToContainer(canvas);
-    drawGrid(canvas);
-
-    window.addEventListener('resize', (e)=>{
-      fitToContainer(canvas);
-      drawGrid(canvas);
-    });
+  <div class="toolbar">
+    <label for="rotX">X Rotation</label>
+    <input id="rotateX" type="range" id="start" name="rotX" min="-45" max="45" value="0" />
     
+    <label for="rotY">Y Rotation</label>
+    <input id="rotateY" type="range" id="start" name="rotY" min="-45" max="45" value="0" />
 
-    function fitToContainer(canvas) {
-      // Make it visually fill the positioned parent
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      // ...then set the internal size to match
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+    <label for="rotateZ">Z Rotation</label>
+    <input id="rotateZ" type="range" id="start" name="scaleZ" min="0" max="360" value="0" />
+  </div>
+  <div class="scene">
+    <svg id="svg" class="panel" width="300" height="200">
+      <rect width="100%" height="100%" stroke="gray" fill="#ccc" style="fill-opacity:0.7;" />
+      <g style="fill-opacity:0.7; stroke:black; stroke-width:3px;">
+          <circle cx="50%" cy="30%" r="29%" style="fill:red;" />
+          <circle cx="30%" cy="70%" r="29%" style="fill:blue;" />
+          <circle cx="70%" cy="70%" r="29%" style="fill:green;" /> 
+        </g>
+    </svg>
+  </div>
+
+  <script>
+    //Change the CSS Variable value here
+    function valueChange(id, value) {
+      document.documentElement.style.setProperty('--' + id, value);
     }
 
-    function drawGrid(canvas) {
-
-      let context = canvas.getContext("2d");
-      let steps = 10;
-      let height = canvas.height;
-      let width = canvas.width;
-      let hFraction = height / steps;
-      let wFraction = width / steps;
-      let colFraction = 100 / (steps+4);
-      
-
-      for (let x = 0; x <= steps; x++) {
-        for (let y = 0; y <= 10; y++) {
-          context.beginPath();
-          context.fillStyle = `hsl(${color}, ${((x+2) * colFraction)}%, ${(y+2) * colFraction}%)`;
-          context.rect(wFraction * x, hFraction * y, wFraction, hFraction);
-          context.fill();
-        }
-      }
-    }
+    document.getElementById('rotateX').addEventListener('input', (e) => {
+      valueChange(e.currentTarget.id, e.currentTarget.value + 'deg');
+    });
+    document.getElementById('rotateY').addEventListener('input', (e) => {
+      valueChange(e.currentTarget.id, e.currentTarget.value + 'deg');
+    });
+    document.getElementById('rotateZ').addEventListener('input', (e) => {
+      valueChange(e.currentTarget.id, e.currentTarget.value + 'deg');
+    });
   </script>
 </body>
 
