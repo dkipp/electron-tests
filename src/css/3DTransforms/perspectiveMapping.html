@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>CSS 3D transforms SVG</title>
+  <base href="../../../">
+  <link rel="stylesheet" href="./assets/css/variables.css">
+  <link rel="stylesheet" href="./assets/css/nativize.css">
+  <link rel="stylesheet" href="./assets/css/global.css">
+
+  <style type="text/css">
+    #container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: clip;
+    }
+
+    #box {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 500px;
+      height: 500px;
+      border: 1px solid red;
+      transform-origin: 0 0;
+    }
+
+    #box img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .corner {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      border: 1px solid blue;
+    }
+  </style>
+</head>
+
+<body>
+  <!--ul>
+    <li>
+      <a href="https://franklinta.com/2014/09/08/computing-css-matrix3d-transforms/">Computing CSS matrix3d transforms</a>
+    </li>
+    <li>
+      <a href="https://www.uncorkedstudios.com/blog/perspective-transforms-in-javascript/">Perspective Transforms in JavaScript</a>
+    </li>
+    <li>
+      <a href="http://jlouthan.github.io/perspective-transform/examples/css-matrix3d/index.html">js css-matrix3d Beispiel</a>
+    </li>
+  </ul-->
+
+  <div id="container">
+    <div id="box">
+      <img src="./assets/img/about@2x.png">
+    </div>
+    <div id="marker0" class="corner">TL</div>
+    <div id="marker2" class="corner">TR</div>
+    <div id="marker4" class="corner">BL</div>
+    <div id="marker6" class="corner">BR</div>
+  </div>
+
+
+  <script>
+
+    const PerspT = require('perspective-transform');
+    let corners = [100, 100, 300, 100, 100, 300, 300, 300];
+    let currentcorner = -1;
+
+    function transform2d(elt, x1, y1, x2, y2, x3, y3, x4, y4) {
+      var w = elt.offsetWidth, h = elt.offsetHeight;
+      var transform = PerspT([0, 0, w, 0, 0, h, w, h], [x1, y1, x2, y2, x3, y3, x4, y4]);
+      var t = transform.coeffs;
+      t = [t[0], t[3], 0, t[6],
+      t[1], t[4], 0, t[7],
+        0, 0, 1, 0,
+      t[2], t[5], 0, t[8]];
+      t = "matrix3d(" + t.join(", ") + ")";
+      elt.style["-webkit-transform"] = t;
+      elt.style["-moz-transform"] = t;
+      elt.style["-o-transform"] = t;
+      elt.style.transform = t;
+    }
+
+    function update() {
+      let box = document.getElementById("box");
+      transform2d(box, corners[0], corners[1], corners[2], corners[3],  corners[4], corners[5], corners[6], corners[7]);
+      for (var i = 0; i != 8; i += 2) {
+        var elt = document.getElementById("marker" + i);
+        elt.style.left = corners[i] + "px";
+        elt.style.top = corners[i + 1] + "px";
+      }
+    }
+
+    function move(evnt) {
+      if (currentcorner < 0) return;
+      corners[currentcorner] = evnt.pageX;
+      corners[currentcorner + 1] = evnt.pageY;
+      update();
+    }
+    
+    window.addEventListener('load', () => {
+      document.documentElement.style.margin = "0px";
+      document.documentElement.style.padding = "0px";
+      document.body.style.margin = "0px";
+      document.body.style.padding = "0px";
+      update();
+    });
+
+    window.addEventListener('mousedown', (evnt) => {
+      console.log(evnt);
+      var x = evnt.pageX, y = evnt.pageY, dx, dy;
+      var best = 400; // 20px grab radius
+      currentcorner = -1;
+      for (var i = 0; i != 8; i += 2) {
+        dx = x - corners[i];
+        dy = y - corners[i + 1];
+        if (best > dx * dx + dy * dy) {
+          best = dx * dx + dy * dy;
+          currentcorner = i;
+        }
+      }
+      console.log(currentcorner);
+      move(evnt);
+    });
+
+    window.addEventListener('mouseup', (evnt) => {
+      currentcorner = -1;
+    })
+
+    window.addEventListener('mousemove', move);
+
+  </script>
+</body>
+
+</html>

@@ -19,6 +19,9 @@
       --rotateX: 0deg;
       --rotateY: 0deg;
       --rotateZ: 0deg;
+      --translateX: 0px;
+      --translateY: 0px;
+      --scale: 1;
     }
 
     body {
@@ -47,7 +50,7 @@
     .panel {
       width: 100%;
       height: 100%;
-      transform: rotateY(var(--rotateY)) rotateX(var(--rotateX))  rotateZ(var(--rotateZ));
+      transform: rotateY(var(--rotateY)) rotateX(var(--rotateX))  rotateZ(var(--rotateZ)) translateX(var(--translateX)) translateY(var(--translateY)) scale(var(--scale));
       transition: transform 500ms ease-in-out;
     }
   </style>
@@ -62,7 +65,16 @@
     <input id="rotateY" type="range" id="start" name="rotY" min="-45" max="45" value="0" />
 
     <label for="rotateZ">Z Rotation</label>
-    <input id="rotateZ" type="range" id="start" name="scaleZ" min="0" max="360" value="0" />
+    <input id="rotateZ" type="range" id="start" name="rotateZ" min="0" max="360" value="0" />
+
+    <label for="translateX">translateX</label>
+    <input id="translateX" type="range" id="start" name="translateX" min="-200" max="200" value="0" />
+
+    <label for="translateY">translateY</label>
+    <input id="translateY" type="range" id="start" name="translateY" min="-200" max="200" value="0" />
+
+    <label for="scale">scale</label>
+    <input id="scale" type="range" id="start" name="scale" min="0.2" max="1.8" value="1.0" step=".1"/>
   </div>
   <div class="scene">
     <svg id="svg" class="panel" width="300" height="200">
@@ -89,6 +101,17 @@
     });
     document.getElementById('rotateZ').addEventListener('input', (e) => {
       valueChange(e.currentTarget.id, e.currentTarget.value + 'deg');
+    });
+
+    document.getElementById('translateX').addEventListener('input', (e) => {
+      valueChange(e.currentTarget.id, e.currentTarget.value + 'px');
+    });
+    document.getElementById('translateY').addEventListener('input', (e) => {
+      valueChange(e.currentTarget.id, e.currentTarget.value + 'px');
+    });
+
+    document.getElementById('scale').addEventListener('input', (e) => {
+      valueChange(e.currentTarget.id, e.currentTarget.value);
     });
   </script>
 </body>

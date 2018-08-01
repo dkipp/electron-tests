@@ -20,25 +20,7 @@ let template = [
       { role: "minimize" },
       { role: "close" }
     ]
-  },
-  {
-    label: "PDF.js",
-    submenu: [
-      {
-        label: "Basic Setup",
-        click: (item, focusedWindow) => {
-          mainWindow.loadURL(`file://${__dirname}/pdfjs/setup.html`);
-        }
-      },
-      {
-        label: "All Pages",
-        click: (item, focusedWindow) => {
-          mainWindow.loadURL(`file://${__dirname}/pdfjs/pages.html`);
-        }
-      }
-    ]
-  },
-  {
+  }, {
     label: "CSS",
     submenu: [
       {
@@ -49,16 +31,14 @@ let template = [
             click: (item, focusedWindow) => {
               mainWindow.loadURL(`file://${__dirname}/css/grids/basics.html`);
             }
-          },
-          {
+          }, {
             label: "pattern",
             click: (item, focusedWindow) => {
               mainWindow.loadURL(`file://${__dirname}/css/grids/pattern.html`);
             }
           }
         ]
-      },
-      {
+      }, {
         label: "3D transforms",
         submenu: [
           {
@@ -68,24 +48,47 @@ let template = [
                 `file://${__dirname}/css/3DTransforms/transformCanvas.html`
               );
             }
-          },
-          {
+          }, {
             label: "Transformed SVG",
             click: (item, focusedWindow) => {
               mainWindow.loadURL(
                 `file://${__dirname}/css/3DTransforms/transformSVG.html`
               );
             }
+          }, {
+            label: "Perspective Mapping",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(
+                `file://${__dirname}/css/3DTransforms/perspectiveMapping.html`
+              );
+            }
           }
         ]
       }
     ]
-  },
-  {
-    label: "Babylonjs",
+  }, {
+    label: "SVG",
+    submenu: []
+  }, {
+    label: "PDF.js",
     submenu: [
       {
-        label: "Babylonjs Basics",
+        label: "Basic Setup",
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/pdfjs/setup.html`);
+        }
+      }, {
+        label: "All Pages",
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/pdfjs/pages.html`);
+        }
+      }
+    ]
+  }, {
+    label: "Babylon.JS",
+    submenu: [
+      {
+        label: "Babylon.JS Basics",
         submenu: [
           {
             label: "Getting Started",
@@ -98,7 +101,10 @@ let template = [
         ]
       }
     ]
-  }
+  }, {
+    label: "openCV",
+    submenu: []
+  },
 ];
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
