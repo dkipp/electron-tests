@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Babylon.JS - Skull</title>
+  <base href="../../../">
+  <link rel="stylesheet" href="./assets/css/variables.css">
+  <link rel="stylesheet" href="./assets/css/nativize.css">
+  <link rel="stylesheet" href="./assets/css/global.css">
+  <style>
+    html,
+    body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      background: url("./assets/img/Studio-Background.jpg") center/cover;
+    }
+
+    #renderCanvas {
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="renderCanvas"></canvas>
+  <script>
+    import * as BABYLON from 'babylonjs';
+    import 'babylonjs-materials';
+
+    window.addEventListener('DOMContentLoaded', function () {
+      // get the canvas DOM element
+      var canvas = document.getElementById('renderCanvas');
+
+      // load the 3D engine
+      var engine = new BABYLON.Engine(canvas, true);
+
+      // createScene function that creates and return the scene
+      var createScene = function () {
+        var scene = new BABYLON.Scene(engine)
+        scene.clearColor = new BABYLON.Color4(0, 0, 0, 0)
+        scene.ambientColor = new BABYLON.Color3(0.4, 0.4, 0.4)
+
+        var camera = new BABYLON.ArcRotateCamera("Camera", -0.5, 0.8, 200, BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, true)
+
+        var light = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(0, -1, 1), scene)
+        light.intensity = 0.5
+
+        var ground = BABYLON.Mesh.CreatePlane('ground', 1000, scene)
+        ground.rotation.x = Math.PI / 2
+        ground.material = new BABYLON.ShadowOnlyMaterial('mat', scene)
+        ground.receiveShadows = true
+
+        ground.position.y = -50;
+
+        var shadowGenerator = new BABYLON.ShadowGenerator(512, light)
+        shadowGenerator.useBlurExponentialShadowMap = true;
+        shadowGenerator.blurScale = 2;
+        shadowGenerator.setDarkness(0.9);
+
+        BABYLON.SceneLoader.ImportMesh("", "./assets/babylon/scenes/", "skull.babylon", scene, function (newMeshes) {
+          shadowGenerator.getShadowMap().renderList.push(newMeshes[0])
+
+          camera.target = newMeshes[0];
+        });
+
+        return scene;
+
+      };
+
+      // call the createScene function
+      var scene = createScene();
+
+      // run the render loop
+      engine.runRenderLoop(function () {
+        scene.render();
+      });
+
+      // the canvas/window resize event handler
+      window.addEventListener('resize', function () {
+        engine.resize();
+      });
+    });
+  </script>
+</body>
+
+</html>

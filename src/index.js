@@ -69,12 +69,33 @@ let template = [
             }
           }
         ]
+      }, {
+        label: "Fluent Design",
+        submenu: [
+          {
+            label: "inspiration",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(`file://${__dirname}/css/Fluent-Design/inspiration.html`);
+            }
+          }
+        ]
       }
     ]
   },
   {
     label: "SVG",
     submenu: []
+  },
+  {
+    label: "Media",
+    submenu: [
+      {
+        label: "Webcam Stream",
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/media/webcam.html`);
+        }
+      }
+    ]
   },
   {
     label: "PDF.js",
@@ -109,6 +130,14 @@ let template = [
             click: (item, focusedWindow) => {
               mainWindow.loadURL(
                 `file://${__dirname}/babylonjs/basics/quickstart.html`
+              );
+            }
+          },
+          {
+            label: "Skull",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(
+                `file://${__dirname}/babylonjs/basics/skull.html`
               );
             }
           }

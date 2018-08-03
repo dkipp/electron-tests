@@ -52,6 +52,9 @@
     <li>
       <a href="http://jlouthan.github.io/perspective-transform/examples/css-matrix3d/index.html">js css-matrix3d Beispiel</a>
     </li>
+    <li>
+      <a href="https://bl.ocks.org/mbostock/10571478">D3 and numericjs</a>
+    </li
   </ul-->
 
   <div id="container">
@@ -88,7 +91,7 @@
 
     function update() {
       let box = document.getElementById("box");
-      transform2d(box, corners[0], corners[1], corners[2], corners[3],  corners[4], corners[5], corners[6], corners[7]);
+      transform2d(box, corners[0], corners[1], corners[2], corners[3], corners[4], corners[5], corners[6], corners[7]);
       for (var i = 0; i != 8; i += 2) {
         var elt = document.getElementById("marker" + i);
         elt.style.left = corners[i] + "px";
@@ -102,7 +105,7 @@
       corners[currentcorner + 1] = evnt.pageY;
       update();
     }
-    
+
     window.addEventListener('load', () => {
       document.documentElement.style.margin = "0px";
       document.documentElement.style.padding = "0px";
@@ -111,6 +114,14 @@
       update();
     });
 
+    /*
+    ToDo: replace with:
+    document.getElementById("container").addEventListener("mousedown",function(e) {
+      if (e.target && e.target.matches("div.corner")) {
+        e.target.className = "foo"; // new class name here
+        }
+    });
+    */
     window.addEventListener('mousedown', (evnt) => {
       console.log(evnt);
       var x = evnt.pageX, y = evnt.pageY, dx, dy;
