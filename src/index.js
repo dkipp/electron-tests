@@ -69,13 +69,16 @@ let template = [
             }
           }
         ]
-      }, {
+      },
+      {
         label: "Fluent Design",
         submenu: [
           {
             label: "inspiration",
             click: (item, focusedWindow) => {
-              mainWindow.loadURL(`file://${__dirname}/css/Fluent-Design/inspiration.html`);
+              mainWindow.loadURL(
+                `file://${__dirname}/css/Fluent-Design/inspiration.html`
+              );
             }
           }
         ]
