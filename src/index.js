@@ -137,10 +137,10 @@ let template = [
             }
           },
           {
-            label: "Skull",
+            label: "Dummy",
             click: (item, focusedWindow) => {
               mainWindow.loadURL(
-                `file://${__dirname}/babylonjs/basics/skull.html`
+                `file://${__dirname}/babylonjs/basics/dummy.html`
               );
             }
           }

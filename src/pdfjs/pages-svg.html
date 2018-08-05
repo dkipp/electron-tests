@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SVG Pages</title>
+    <base href="../../">
+    <link rel="stylesheet" href="./assets/css/variables.css">
+    <link rel="stylesheet" href="./assets/css/nativize.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/about.css">
+    <link rel="stylesheet" href="./assets/css/nav.css">
+    <link rel="stylesheet" href="./assets/css/section.css">
+    <link rel="stylesheet" href="./assets/css/demo.css">
+    <link rel="stylesheet" href="./assets/css/github.css">
+
+    <style>
+        body {
+            overflow-y: auto;
+        }
+
+        #all-page-pdf-canvases {
+            line-height: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="all-page-pdf-canvases">
+        <h1>PDF Pages:</h1>
+    </div>
+    <script>
+
+        const pdfjsLib = require("pdfjs-dist");
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `./node_modules/pdfjs-dist/build/pdf.worker.js`;
+
+        const svgContainer = document.getElementById("pdf-svg-container");
+        let pdfdoc = null;
+        let pdfPath = `./../../assets/pdf/das-kleine-schwarze-naehen-data.pdf`;
+
+        let pdfViewer = new pdfjsViewer.PDFViewer({
+            container: svgContainer,
+            renderer: "svg",
+            textLayerMode: 0
+        });
+
+        document.addEventListener("DOMContentLoaded", event => {
+            pdfjsLib.getDocument(pdfPath).then(pdf => {
+                
+                pdfdoc = pdf;
+                pdfViewer.setDocument(pdfdoc);
+
+                for (let page = 1; page <= pdfdoc.numPages; page++) {
+                    let canvas = document.createElement("canvas");
+                    canvas.className = "pdf-page-canvas";
+                    canvasContainer.appendChild(canvas);
+                    renderPage(page, canvas);
+                }
+            });
+        });
+
+        function renderPage(pageNumber, canvas) {
+            pdfdoc.getPage(pageNumber).then(page => {
+                let scale = 0.25;
+                // applay padding
+                page.pageInfo.view[0] += 58;
+                page.pageInfo.view[1] += 58;
+                page.pageInfo.view[2] -= 58;
+                page.pageInfo.view[3] -= 58;
+
+                let viewport = page.getViewport(scale, 0);
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                page.render({ canvasContext: canvas.getContext("2d"), viewport: viewport });
+            });
+        }
+    </script>
+</body>
+
+</html>
