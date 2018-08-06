@@ -104,9 +104,9 @@ let template = [
     label: "PDF.js",
     submenu: [
       {
-        label: "Basic Setup",
+        label: "Basic SVG Setup",
         click: (item, focusedWindow) => {
-          mainWindow.loadURL(`file://${__dirname}/pdfjs/setup.html`);
+          mainWindow.loadURL(`file://${__dirname}/pdfjs/pages-svg.html`);
         }
       },
       {
