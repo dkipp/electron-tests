@@ -52,8 +52,10 @@
                 scene.clearColor = new BABYLON.Color4(0, 0, 0, 0)
                 scene.ambientColor = new BABYLON.Color3(0.4, 0.4, 0.4)
 
-                var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 0, 0), scene);
-                camera.attachControl(canvas, true)
+                // Parameters: alpha, beta, radius, target position, scene
+                let camera = new BABYLON.ArcRotateCamera("Camera", 1, 1.4, 7, new BABYLON.Vector3.Zero(), scene);
+                camera.attachControl(canvas, true, true)
+                //console.log(camera.target);
 
 
                 camera.lowerRadiusLimit = 2;
@@ -72,11 +74,11 @@
                 ground.material = new BABYLON.ShadowOnlyMaterial('mat', scene)
                 ground.receiveShadows = true
 
-                ground.position.y = 0.01;
+                ground.position.y += 0.01;
 
                 var shadowGenerator = new BABYLON.ShadowGenerator(2048, light)
                 shadowGenerator.useBlurExponentialShadowMap = true;
-                shadowGenerator.blurScale = 30;
+                //shadowGenerator.blurScale = 30;
                 shadowGenerator.setDarkness(0.5);
 
                 BABYLON.SceneLoader.ImportMesh("", "./assets/babylon/scenes/", "dummy3.babylon", scene, function (newMeshes, particleSystems, skeletons) {
@@ -89,6 +91,7 @@
                     var idleRange = skeleton.getAnimationRange("YBot_Idle");
                     if (idleRange) scene.beginAnimation(skeleton, idleRange.from, idleRange.to, true);
 
+                    console.log(camera.target);
                 });
 
                 
