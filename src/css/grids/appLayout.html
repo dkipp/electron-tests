@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Basic Desktop App layout</title>
+    <base href="../../../">
+    <meta name="reference" content="https://hacks.mozilla.org/2018/02/css-grid-for-ui-layouts/" />
+    <link rel="stylesheet" href="./assets/css/variables.css">
+    <link rel="stylesheet" href="./assets/css/nativize.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+
+    <style>
+        #grid {
+            display: grid;
+            box-sizing: border-box;
+            width: 100vw;
+            height: 100vh;
+            grid-template-columns: [shortcuts] minmax(auto, min-content) [start] minmax(auto, min-content) [center] auto [end] minmax(auto, min-content);
+            grid-template-rows: [header] 2em [middle] auto [footer] 2em;
+            padding: 0;
+            _grid-column-gap: 1px;
+            _grid-row-gap: 1px;
+            background-color: #333;
+        }
+
+        #shortcuts {
+            grid-column: shortcuts;
+            grid-row: 1/4;
+            background-color: #ed7;
+            padding: .5em;
+        }
+
+        .start {
+            grid-column-start: start;
+        }
+
+        .center {
+            grid-column-start: center;
+        }
+
+        .end {
+            grid-column-start: end;
+        }
+
+        .header {
+            grid-row-start: header;
+        }
+
+        .middle {
+            grid-row-start: middle;
+        }
+
+        .footer {
+            grid-row-start: footer;
+        }
+
+
+
+        /* extra styles */
+
+        .scroll {
+            overflow: auto;
+        }
+
+        .spacer {
+            flex: 1;
+        }
+
+        .panel,
+        .toolbar {
+            background-color: #ccc;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+        }
+
+        .toolbar button {
+            background-color: #ccc;
+            border: 0px solid black;
+        }
+
+        .toolbar button:hover {
+            background-color: #888;
+        }
+
+        .content {
+            background-color: white;
+        }
+
+
+        html,
+        body {
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        .start,
+        .end {
+            min-width: 150px;
+        }
+
+        .closed {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='grid'>
+        <section id="shortcuts">
+            <button>icon</button>
+            <button>icon</button>
+            <button>icon</button>
+            <button>icon</button>
+        </section>
+        <div class="toolbar header start">Left Sidebar Title</div>
+        <div class="panel middle start scroll">
+            This left side panel hasreallywidetextthattakesupalotofspace and a min width of 150px. Closing this panel will set display
+            to
+            <i>none</i>;
+        </div>
+        <div class="toolbar footer start">
+            <button class="fa fa-plus-circle"></button>
+            <button class="fa fa-minus-circle"></button>
+        </div>
+
+        <div class="toolbar header center">
+            <button class="fa fa-save"></button>
+            <span class='spacer'></span>
+            <label>current file</label>
+            <span class='spacer'></span>
+            <button class="fa fa-file"></button>
+        </div>
+
+        <div class="content middle center">
+            this is the content that we are editing
+        </div>
+
+        <div class="toolbar footer center">
+            <button id="toggle-left"> &lt;</button>
+            <span class='spacer'></span>
+            <button id="toggle-right"> &gt;</button>
+        </div>
+
+
+        <div class="toolbar header end">Right Sidebar Title</div>
+
+        <div class="panel middle end scroll">
+            the right side panel
+        </div>
+
+        <div class="toolbar footer end">more actions</div>
+    </div>
+
+    <script>
+        const $ = (selector) => document.querySelector(selector)
+        const $$ = (selector) => document.querySelectorAll(selector)
+        const on = (elem, type, listener) => elem.addEventListener(type, listener)
+
+        on($('#toggle-left'), 'click', () => {
+            $$(".start").forEach((elem) => elem.classList.toggle('closed'))
+        })
+        on($('#toggle-right'), 'click', () => {
+            $$(".end").forEach((elem) => elem.classList.toggle('closed'))
+        })
+    </script>
+</body>
+
+</html>

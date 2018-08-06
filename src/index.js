@@ -38,6 +38,14 @@ let template = [
             click: (item, focusedWindow) => {
               mainWindow.loadURL(`file://${__dirname}/css/grids/pattern.html`);
             }
+          },
+          {
+            label: "Desktop App layout",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(
+                `file://${__dirname}/css/grids/appLayout.html`
+              );
+            }
           }
         ]
       },
