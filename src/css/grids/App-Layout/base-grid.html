@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Basic Desktop App layout Grid</title>
+    <base href="../../../../">
+    <meta name="reference" content="https://hacks.mozilla.org/2018/02/css-grid-for-ui-layouts/" />
+    <link rel="stylesheet" href="./assets/css/variables.css">
+    <link rel="stylesheet" href="./assets/css/nativize.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+
+    <style>
+        #grid {
+            display: grid;
+            box-sizing: border-box;
+            width: 100vw;
+            height: 100vh;
+            grid-template-columns: [shortcuts] minmax(auto, min-content) [start] minmax(auto, min-content) [center] auto [end] minmax(auto, min-content);
+            grid-template-rows: [alerts] 2em [header] 2em [middle] auto [footer] 2em;
+            padding: 0;
+            grid-column-gap: 1px;
+            grid-row-gap: 1px;
+            background-color: #333;
+        }
+
+        #grid > div {
+          background-color: #FFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='grid'>
+        <div>A1</div>
+        <div>A2</div>
+        <div>A3</div>
+        <div>A4</div>
+
+        <div>B1</div>
+        <div>B2</div>
+        <div>B3</div>
+        <div>B4</div>
+
+        <div>C1</div>
+        <div>C2</div>
+        <div>C3</div>
+        <div>C4</div>
+
+        <div>D1</div>
+        <div>D2</div>
+        <div>D3</div>
+        <div>D4</div>
+
+    </div>
+</body>
+
+</html>

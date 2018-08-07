@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Basic Desktop App layout Grid</title>
+    <base href="../../../../">
+    <meta name="reference" content="https://hacks.mozilla.org/2018/02/css-grid-for-ui-layouts/" />
+    <link rel="stylesheet" href="./assets/css/variables.css">
+    <link rel="stylesheet" href="./assets/css/nativize.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+
+    <style>
+        #grid {
+            display: grid;
+            box-sizing: border-box;
+            width: 100vw;
+            height: 100vh;
+            grid-template-columns: minmax(auto, min-content) minmax(auto, min-content) auto minmax(auto, min-content);
+            grid-template-rows: 2em 2em auto 2em min-content;
+            grid-column-gap: 1px;
+            grid-row-gap: 1px;
+            background-color: #333;
+            grid-template-areas:
+              "appHead appHead appHead appHead"
+              "shortcuts leftHead mainHead rightHead"
+              "shortcuts leftMain main rightMain"
+              "shortcuts leftFooter mainFooter rightFooter"
+              "appFooter appFooter appFooter appFooter";
+        }
+
+        #grid > div {
+          background-color: #FFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='grid'>
+        <div style="grid-area: appHead;">global Head</div>
+        <div style="grid-area: shortcuts;">Nav1</div>
+
+        <div style="grid-area: leftHead;">left Header</div>
+        <div style="grid-area: leftMain;">left Sidebar</div>
+        <div style="grid-area: leftFooter;">left Footer</div>
+
+        <div style="grid-area: mainHead;">main Header</div>
+        <div style="grid-area: main;">
+            <input type="checkbox" id="rightSideCB" name="rightSide" value="on">
+            <label for="rightSideCB">rightSide</label>
+        </div>
+        <div style="grid-area: mainFooter;">left Footer</div>
+
+        <div id="rightHead"   style="grid-area: rightHead;">right Header</div>
+        <div id="rightMain"   style="grid-area: rightMain;">right Sidebar</div>
+        <div id="rightFooter" style="grid-area: rightFooter;">right Footer</div>
+
+        <div style="grid-area: appFooter;">global Footer</div>
+
+    </div>
+
+    <script>
+      document.querySelector('#rightSideCB').addEventListener('click', (e) => {
+        if(e.target.checked){
+          document.querySelector('#rightHead').style.display = 'none';
+          document.querySelector('#rightMain').style.display = 'none';
+          document.querySelector('#rightFooter').style.display = 'none';
+        }else{
+          document.querySelector('#rightMain').style.display = 'initial';
+        }
+      })
+    </script>
+</body>
+
+</html>

@@ -41,11 +41,31 @@ let template = [
           },
           {
             label: "Desktop App layout",
-            click: (item, focusedWindow) => {
-              mainWindow.loadURL(
-                `file://${__dirname}/css/grids/appLayout.html`
-              );
-            }
+            submenu: [
+              {
+                label: "Mozilla example",
+                click: (item, focusedWindow) => {
+                  mainWindow.loadURL(
+                    `file://${__dirname}/css/grids/App-Layout/appLayout.html`
+                  );
+                }
+              },{
+                label: "base-grid",
+                click: (item, focusedWindow) => {
+                  mainWindow.loadURL(
+                    `file://${__dirname}/css/grids/App-Layout/base-grid.html`
+                  );
+                }
+              },
+              {
+                label: "area-grid",
+                click: (item, focusedWindow) => {
+                  mainWindow.loadURL(
+                    `file://${__dirname}/css/grids/App-Layout/area-grid.html`
+                  );
+                }
+              }
+            ]
           }
         ]
       },
@@ -172,7 +192,8 @@ const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1000,
-    height: 800
+    height: 800,
+    //frame: false // -> no menu, no close,...
   });
 
   // and load the index.html of the app.
