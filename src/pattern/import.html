@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Pattern - PDF Import</title>
+  <base href="../../">
+  <link rel="stylesheet" href="./assets/css/variables.css">
+  <link rel="stylesheet" href="./assets/css/nativize.css">
+  <link rel="stylesheet" href="./assets/css/global.css">
+
+  <style>
+    #grid {
+      display: grid;
+      box-sizing: border-box;
+      width: 100vw;
+      height: 100vh;
+      grid-template-columns: [start] minmax(200px, min-content) [center] 1fr;
+      grid-template-rows: [header] min-content [middle] auto [footer] min-content;
+      padding: 0;
+      grid-column-gap: 1px;
+      grid-row-gap: 1px;
+      background-color: rgb(223, 223, 196);
+    }
+
+    .start {
+      grid-column-start: start;
+    }
+
+    .center {
+      grid-column-start: center;
+    }
+
+    .middle {
+      grid-row-start: middle;
+    }
+
+    .toolbar {
+      background-color: #333;
+    }
+
+    .content {
+      background: rgb(211, 175, 211);
+      
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div id="grid">
+    <div class="start middle toolbar">Toolbar</div>
+    <div class="center middle content">Content</div>
+  </div>
+
+  <!--script>
+
+    const pdfjsLib = require("pdfjs-dist");
+    const fs = require('fs');
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `./node_modules/pdfjs-dist/build/pdf.worker.js`;
+
+    let pdfPath = `./../../assets/pdf/das-kleine-schwarze-naehen-data.pdf`;
+
+    document.addEventListener("DOMContentLoaded", event => {
+      pdfjsLib.getDocument(pdfPath).then(pdf => {
+
+        pdf.getPage(1).then((page) => {
+
+          // Set scale (zoom) level
+          // let scale = 1.5;
+
+          // Get viewport (dimensions)
+          let viewport = page.getViewport(1, 0);
+
+          // Get div#the-svg
+          var container = document.getElementById('pdf-svg-container');
+
+          // Set dimensions
+          container.style.width = viewport.width + 'px';
+          container.style.height = viewport.height + 'px';
+
+          // SVG rendering by PDF.js
+          page.getOperatorList()
+            .then((opList) => {
+              var svgGfx = new pdfjsLib.SVGGraphics(page.commonObjs, page.objs);
+              return svgGfx.getSVG(opList, viewport);
+            })
+            .then((svg) => {
+              container.appendChild(svg);
+
+              /*
+              var serializer = new XMLSerializer();
+              var source = serializer.serializeToString(svg);
+
+              console.log(source);
+              fs.writeFile("./assets/svg/output.svg", source, (err) => {
+                if (err) {
+                  return console.log(err);
+                }
+
+                console.log("The file was saved!");
+              });
+              */
+            });
+        });
+      });
+    });
+  </script-->
+</body>
+
+</html>

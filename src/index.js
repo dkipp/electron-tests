@@ -192,7 +192,18 @@ let template = [
   {
     label: "openCV",
     submenu: []
-  }
+  },
+  {
+    label: "Pattern Thing",
+    submenu: [
+      {
+        label: "Import",
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/pattern/import.html`);
+        }
+      }
+    ]
+  },
 ];
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
