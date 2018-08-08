@@ -110,6 +110,19 @@ let template = [
             }
           }
         ]
+      },
+      {
+        label: "FontAwesome",
+        submenu: [
+          {
+            label: "FontAwesome Setup",
+            click: (item, focusedWindow) => {
+              mainWindow.loadURL(
+                `file://${__dirname}/css/FontAwesome/faSetup.html`
+              );
+            }
+          }
+        ]
       }
     ]
   },
