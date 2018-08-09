@@ -138,6 +138,12 @@ let template = [
         click: (item, focusedWindow) => {
           mainWindow.loadURL(`file://${__dirname}/media/webcam.html`);
         }
+      },
+      {
+        label: "Video from File",
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/media/videoFromFile.html`);
+        }
       }
     ]
   },

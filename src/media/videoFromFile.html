@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="Video Player" name="title">
+  <title>Open Video File</title>
+  <base href="../../">
+  <link rel="stylesheet" href="./assets/css/variables.css">
+  <link rel="stylesheet" href="./assets/css/nativize.css">
+  <link rel="stylesheet" href="./assets/css/global.css">
+  <script src="./assets/js/SimpleVideo.js"></script>
+  <style>
+    #container {
+      margin: 0px auto;
+      max-width: 520px;
+    }
+
+    #player {
+      _width: 500px;
+    }
+
+    section {
+      margin: 1em 2em;
+      padding: .3em;
+      background-color: #eee;
+    }
+
+    .tracklistContainer {
+      overflow-x: auto;
+      perspective-origin: center;
+      
+    }
+
+    .tracklist {
+      background: #ee5;
+      _transform: scaleX(1.6);
+    }
+
+    .track {
+      background-image: url("./assets/img/600px-Graph-paper.svg.png");
+      background-repeat: repeat-x;
+      width: 2400px;
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <section>
+      <video id="player" controls></video>
+    </section>
+    <section>
+      <button id="playPauseButton">play</button>
+      <button id="stopButton">stop</button>
+      <button id="prevFrameButton">prev frame</button>
+      <button id="nextFrameButton">next frame</button>
+    </section>
+    <section>
+      <div class="tracklistContainer">
+        <div class="tracklist">
+          <div class="track"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div>
+
+  </div>
+  <script>
+
+    const fs = require('fs');
+
+    let playerOptions = {
+      player: '#player',
+      fps: 30,
+      controls: {
+        playpause: '#playPauseButton',
+        stop: '#stopButton',
+        nextFrame: '#nextFrameButton',
+        prevFrame: '#prevFrameButton'
+      }
+    }
+
+    const player = new SimpleVideo(playerOptions);
+    player.setSrc("C:/Users/Daniel/Documents/projekte/customElements/video/media/film.webm");
+
+  </script>
+</body>
+
+</html>
