@@ -166,7 +166,14 @@ let template = [
   },
   {
     label: "Vue.js",
-    submenu: []
+    submenu: [
+      {
+        label: "Setup",
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/vuejs/vueSetup.html`);
+        }
+      }
+    ]
   },
   ,
   {

@@ -10,14 +10,26 @@
   <link rel="stylesheet" href="./assets/css/nativize.css">
   <link rel="stylesheet" href="./assets/css/global.css">
   <script src="./assets/js/SimpleVideo.js"></script>
+
   <style>
+    :root {
+      --fps: 30.0;
+      --cue-max-width: 10px;
+      --duration: 0;
+      --total-frames: calc( (var(--fps) * var(--duration)) );
+      --frame-with: calc(100 / var(--total-frames));
+      --track-width: calc( var(--fps) * var(--duration) * var(--cue-max-width) );
+    }
+
     #container {
       margin: 0px auto;
-      max-width: 520px;
+      max-width: 640px;
     }
 
     #player {
       _width: 500px;
+      width: 100%;
+      height: auto;
     }
 
     section {
@@ -26,22 +38,29 @@
       background-color: #eee;
     }
 
-    .tracklistContainer {
-      overflow-x: auto;
-      perspective-origin: center;
-      
-    }
-
     .tracklist {
-      background: #ee5;
-      _transform: scaleX(1.6);
+      overflow-x: auto;
+      _background: rgb(150, 150, 150);
     }
 
     .track {
-      background-image: url("./assets/img/600px-Graph-paper.svg.png");
-      background-repeat: repeat-x;
-      width: 2400px;
-      height: 100px;
+      position: relative;
+      background: rgb(228, 228, 228);
+      margin: 1px 0;
+      width: var(--track-width);
+      height: 1rem;
+    }
+
+    .cue {
+      position: absolute;
+      display: block;
+      top: 0;
+      height: 1rem;
+      width: .1%;
+      left: 0;
+      background: rgb(131, 175, 201);
+      grid-column-end: span 1;
+      grid-row: 1 / 2;
     }
   </style>
 </head>
@@ -49,7 +68,7 @@
 <body>
   <div id="container">
     <section>
-      <video id="player" controls></video>
+      <video is="sport-player" id="player" controls></video>
     </section>
     <section>
       <button id="playPauseButton">play</button>
@@ -58,10 +77,21 @@
       <button id="nextFrameButton">next frame</button>
     </section>
     <section>
-      <div class="tracklistContainer">
-        <div class="tracklist">
-          <div class="track"></div>
+      <div class="tracklist">
+        <div class="track">
+          <div class="cue" style="left:1%"></div>
+          <div class="cue" style="left:2%"></div>
+          <div class="cue" style="left:3%"></div>
+          <div class="cue" style="left:4%"></div>
         </div>
+        <div class="track">
+          <div class="cue" style="left:5%"></div>
+          <div class="cue" style="left:6%"></div>
+          <div class="cue" style="left:7%"></div>
+          <div class="cue" style="left:8%"></div>
+        </div>
+        <div class="track">
+          </div>
       </div>
     </section>
   </div>
@@ -70,10 +100,9 @@
   </div>
   <script>
 
-    const fs = require('fs');
+    //const fs = require('fs');
 
     let playerOptions = {
-      player: '#player',
       fps: 30,
       controls: {
         playpause: '#playPauseButton',
@@ -83,9 +112,31 @@
       }
     }
 
-    const player = new SimpleVideo(playerOptions);
+    let player = document.querySelector('#player');
+    bindPlayer(player);
+
     player.setSrc("C:/Users/Daniel/Documents/projekte/customElements/video/media/film.webm");
 
+   
+
+    function bindPlayer(player) {
+      
+      player.addEventListener('durationchange', (e) => {
+        setCSSvar('duration', `${e.target.duration}`);
+      });
+
+      player.addEventListener('timeupdate', (e) => {
+        //console.log(e.target.currentTime);
+        document.querySelector('.tracklist').scrollLeft = e.target.currentTime;
+      });
+      player.addEventListener('pause', (e) => {
+      });
+    }
+    
+
+    function setCSSvar(id, value) {
+      document.documentElement.style.setProperty('--' + id, value);
+    }
   </script>
 </body>
 
