@@ -49,7 +49,8 @@ let template = [
                     `file://${__dirname}/css/grids/App-Layout/appLayout.html`
                   );
                 }
-              },{
+              },
+              {
                 label: "base-grid",
                 click: (item, focusedWindow) => {
                   mainWindow.loadURL(
@@ -165,6 +166,17 @@ let template = [
     ]
   },
   {
+    label: "LitElement",
+    submenu: [
+      {
+        label: "Setup",
+        click: (item, focusedWindow) => {
+          mainWindow.loadURL(`file://${__dirname}/lit/lit-element-setup.html`);
+        }
+      }
+    ]
+  },
+  {
     label: "Vue.js",
     submenu: [
       {
@@ -216,7 +228,7 @@ let template = [
         }
       }
     ]
-  },
+  }
 ];
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -229,7 +241,7 @@ const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1000,
-    height: 800,
+    height: 800
     //frame: false // -> no menu, no close,...
   });
 

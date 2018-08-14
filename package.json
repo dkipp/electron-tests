@@ -49,6 +49,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@polymer/lit-element": "^0.5.2",
     "babylonjs": "^3.2.0",
     "babylonjs-materials": "^3.2.0",
     "electron-compile": "^6.4.3",

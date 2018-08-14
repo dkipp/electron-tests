@@ -17,7 +17,7 @@
       --cue-max-width: 10px;
       --duration: 0;
       --total-frames: calc( (var(--fps) * var(--duration)) );
-      --frame-with: calc(100 / var(--total-frames));
+      --frame-with: calc(100 / var(--total-frames) * 1%);
       --track-width: calc( var(--fps) * var(--duration) * var(--cue-max-width) );
     }
 
@@ -105,7 +105,7 @@
     let playerOptions = {
       fps: 30,
       controls: {
-        playpause: '#playPauseButton',
+        //playpause: '#playPauseButton',
         stop: '#stopButton',
         nextFrame: '#nextFrameButton',
         prevFrame: '#prevFrameButton'
@@ -115,7 +115,7 @@
     let player = document.querySelector('#player');
     bindPlayer(player);
 
-    player.setSrc("C:/Users/Daniel/Documents/projekte/customElements/video/media/film.webm");
+    player.src = "./assets/vid/film.webm";
 
    
 
@@ -137,6 +137,51 @@
     function setCSSvar(id, value) {
       document.documentElement.style.setProperty('--' + id, value);
     }
+
+
+    function addDemoCues(trackElement, cnt = 100){
+      
+    }
+
+    function addTrack(
+    id,
+    config = {
+      kind: "subtitles",
+      label: null,
+      language: null,
+      mode: "showing",
+      cuechange: null
+    }
+  ) {
+    // needs to be a real element, to be able to remove it until there is an api removeTextTrack()
+    let trackElement = document.createElement("track");
+    trackElement.setAttribute("id", id);
+
+    if (config.kind) {
+      trackElement.setAttribute("kind", config.kind);
+    }
+    if (config.label) {
+      trackElement.setAttribute("label", config.label);
+    }
+    if (config.language) {
+      trackElement.setAttribute("srcLang", config.language);
+    }
+
+    this.player.appendChild(trackElement);
+
+    // trackElement.track options needs to be set after the element is added to the video
+    if (config.mode) {
+      trackElement.track.mode = config.mode;
+    }
+    if (config.id) {
+      trackElement.track.id = id;
+    }
+    if (config.cuechange) {
+      trackElement.track.addEventListener("cuechange", config.cuechange, false);
+    }
+
+    return trackElement;
+  }
   </script>
 </body>
 
